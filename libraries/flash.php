@@ -287,6 +287,30 @@ class Flash {
 		}
 	}
 
+    /**
+     * Get (Magic Method)
+     *
+     * Used to allow the user to retrieve flash messages as a property
+     *
+     * Example:
+     *
+     *    $the_flash = $this->flash->success;
+     *
+     * @access public
+     * @return array The array of messages of a certain type or an empty array
+     */
+    public function __get($name)
+    {
+        $session_messages = $this->_ci->session->flashdata($this->session_name);
+        if (!empty($session_messages) && array_key_exists($name, $session_messages))
+        {
+            return $session_messages[$name];
+        }
+        else
+        {
+            return array();
+        }
+    }
 }
 
 
